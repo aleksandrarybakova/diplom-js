@@ -1,4 +1,4 @@
-// "use strict";
+"use strict";
 
 // колода карт
 let cards = [
@@ -193,21 +193,23 @@ let cards = [
 
 ];
 
-let deck;  //для визуальной части колода рубашкой вверх
+let deck;
+let deck2;
+let deck3;  //для визуальной части колода рубашкой вверх
 
 // игроки
 let player1 = [];
 let player2 = [];
 
 let player1_cards;
-let player2_cards;  //для визуальной части 
+let player2_cards;  //для визуальной части карты игроков рубашками вверх
 
 // стол
 let table = [];
 
-//для визуальной части карты игроков рубашкой вверх
+//для визуальной части карты игроков на столе мастью вверх
 let tableCard1 = document.querySelector('.player1_table');
-let tableCard2 = document.querySelector('.player2_table'); 
+let tableCard2 = document.querySelector('.player2_table');
 
 //поле для игры
 let body = document.querySelector('body');
@@ -215,13 +217,10 @@ let body = document.querySelector('body');
 //итог игры
 let total;
 
-
 //кнопки
 let btnGiveOut = document.querySelector('.give_out');
 let btnMove = document.querySelector('.move');
 let btnPick = document.querySelector('.pick');
-
-
 
 //табло с кол-вом карт у игрока
 let tablo1 = document.querySelector('.info_p1');
@@ -229,31 +228,65 @@ let tablo2 = document.querySelector('.info_p2');
 tablo1.textContent = player1.length;
 tablo2.textContent = player2.length;
 
+//переменные для анимации раздачи и хода
+let deckGiveAnim;
+let moveAnim;    
+
 //появление колоды при загрузке
 window.onload = function () {
     deck = document.createElement('div');
     body.appendChild(deck);
     deck.classList.add('deck');
+    deck2 = document.createElement('div');
+    body.appendChild(deck2);
+    deck2.classList.add('deck2');
+    deck3 = document.createElement('div');
+    body.appendChild(deck3);
+    deck3.classList.add('deck3');
 }
 
-
-
-
+//события при клике на кнопки
 btnGiveOut.addEventListener('click', giveOut);
 btnMove.addEventListener('click', makeAmove);
-function btnPickPlayer2 () {
+function btnPickPlayer2() {
     btnPick.addEventListener('click', pickPlayer2);
     return btnPick;
 }
 
-function btnBlockPlayer2(){
-    btnPick.removeEventListener('click', pickPlayer2); 
+function btnBlockPlayer2() {
+    btnPick.removeEventListener('click', pickPlayer2);
     return btnPick;
 }
 
 
 //раздача карт
 function giveOut() {
+
+    let deckGiveAnim = anime.timeline({     //анимация раздачи
+        easing: 'easeInOutExpo',
+        loop: 18,
+        duration: 750
+    });
+    deckGiveAnim.add({
+        targets: '.deck',
+        translateX: 765,
+        translateY: -200,
+        rotate: '2turn',
+    })
+
+        .add({
+            targets: '.deck2',
+            translateX: 765,
+            translateY: 190,
+            rotate: '2turn'
+        });
+    setTimeout(player1_cardsAdd, 750);
+    setTimeout(player2_cardsAdd, 1500);
+    setTimeout(giveCards, 27000);
+
+}
+
+function giveCards() {
     while (cards.length != 0) {
         for (i = 0; i < 18; i++) {
             player1.push(cards[Math.floor(Math.random() * cards.length)]);// раздача карт для 1го игрока
@@ -266,9 +299,6 @@ function giveOut() {
             }
         }
 
-        player1_cards = document.createElement('div');
-        body.appendChild(player1_cards);
-        player1_cards.classList.add('player1_cards');
         tablo1.textContent = player1.length;
 
         for (i = 0; i < 18; i++) {
@@ -282,18 +312,29 @@ function giveOut() {
             }
         }
 
-        player2_cards = document.createElement('div');
-        body.appendChild(player2_cards);
-        player2_cards.classList.add('player2_cards');
         tablo2.textContent = player2.length;
 
         if (cards.length == 0) {
             body.removeChild(deck);
+            body.removeChild(deck2);
+            body.removeChild(deck3);
         }
     }
-    
+    return cards, player1, player2;
 }
 
+//добавление визуального элемента карт рубашкой игрокам
+function player1_cardsAdd (){
+    player1_cards = document.createElement('div');
+    body.appendChild(player1_cards);
+    player1_cards.classList.add('player1_cards');
+}
+
+function player2_cardsAdd (){
+    player2_cards = document.createElement('div');
+    body.appendChild(player2_cards);
+    player2_cards.classList.add('player2_cards');
+}
 
 
 // игра
@@ -308,7 +349,6 @@ function makeAmove() {
 
     tablo1.textContent = player1.length;
     tablo2.textContent = player2.length;
-
 
     switch (table[0].name) {
         case "six_heart":
@@ -532,6 +572,28 @@ function makeAmove() {
             break;
     }
 
+    let moveAnim = anime.timeline({
+        easing: 'easeInOutExpo',
+        loop: 1,
+        duration: 750,
+        direction: 'reverse'
+    });
+            moveAnim.add({
+                targets: '.player2_table',
+                translateX: 292,
+                translateY: 115,
+                rotate: '1turn'            
+            })
+    
+            .add({            
+                targets: '.player1_table',
+                translateX: 492,
+                translateY: -103,
+                rotate: '1turn'
+            });
+
+
+
     if (tableCard1.classList.length > 2 || tableCard2.classList.length > 2) {    //на столе видны только верхние изображения карт
         while (tableCard1.classList.length > 2) {
             tableCard1.classList.remove(tableCard1.classList.item(1))
@@ -542,32 +604,33 @@ function makeAmove() {
         };
     }
     if (table[0].grade == 1 && table[1].grade == 9) {    //сравнение карт
-        btnBlockPlayer2();   
-        setTimeout(pickPlayer1, 2000);        
+        btnBlockPlayer2();
+        setTimeout(pickPlayer1, 3500);
     }
     else if (table[0].grade == 9 && table[1].grade == 1) {
-        
+
     }
     else if (table[0].grade == table[1].grade) {
-        btnBlockPlayer2(); 
+        btnBlockPlayer2();
     }
     else if (table[0].grade > table[1].grade) {
-        btnBlockPlayer2(); 
-        setTimeout(pickPlayer1, 2000);              
+        btnBlockPlayer2();
+        setTimeout(pickPlayer1, 3500);
     };
 
     return table;
 }
 
-function pickPlayer1() {                 //1й игрок забирает карты со стола
-    while (table.length != 0) {
+function pickPlayer1() {                //1й игрок забирает карты со стола
+        while (table.length != 0) {
         player1.push(table[0]);
         tablo1.textContent = player1.length;
         tablo2.textContent = player2.length;
         table.shift();
         tableCard1.classList.remove(tableCard1.classList.item(1));
         tableCard2.classList.remove(tableCard2.classList.item(1));
-    }
+    }    
+
     if (player1.length == 36) {
         final();
     }
@@ -583,12 +646,12 @@ function pickPlayer2() {              //2й игрок забирает карт
         tableCard1.classList.remove(tableCard1.classList.item(1));
         tableCard2.classList.remove(tableCard2.classList.item(1));
     }
+    
     if (player2.length == 36) {
         final();
     }
     return player2, table;
 }
-
 
 
 //финальная надпись итог игры
@@ -606,4 +669,3 @@ function final() {
     }
     return total;
 }
-

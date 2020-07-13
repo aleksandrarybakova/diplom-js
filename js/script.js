@@ -342,12 +342,7 @@ function player2_cardsAdd (){
 
 // ход
 function makeAmove() {
-    btnPickPlayer2();
-    
-    if (player1.length == 0 || player2.length == 0) {
-        btnMove.removeEventListener('click', makeAmove);
-    }
-
+    btnPickPlayer2();    
     table.unshift(player1[0]);
     player1.shift();
     table.unshift(player2[0]);
@@ -673,6 +668,7 @@ function final() {
         body.appendChild(total);
         total.classList.add('lose');
     }
+
     finalBtn = document.createElement('button');
     finalBtn.textContent = 'начать заново';
     total.appendChild(finalBtn);    

@@ -248,7 +248,6 @@ window.onload = function () {
 
 //события при клике на кнопки
 btnGiveOut.addEventListener('click', giveOut);
-btnMove.addEventListener('click', makeAmove);
 function btnPickPlayer2() {
     btnPick.addEventListener('click', pickPlayer2);
     return btnPick;
@@ -266,7 +265,7 @@ function giveOut() {
     let deckGiveAnim = anime.timeline({     //анимация раздачи
         easing: 'easeInOutExpo',
         loop: 18,
-        duration: 750
+        duration: 500
     });
     deckGiveAnim.add({
         targets: '.deck',
@@ -281,9 +280,9 @@ function giveOut() {
             translateY: 190,
             rotate: '2turn'
         });
-    setTimeout(player1_cardsAdd, 750);
-    setTimeout(player2_cardsAdd, 1500);
-    setTimeout(giveCards, 27000);
+    setTimeout(player1_cardsAdd, 500);
+    setTimeout(player2_cardsAdd, 1000);
+    setTimeout(giveCards, 18000);
 
 }
 
@@ -321,6 +320,7 @@ function giveCards() {
             body.removeChild(deck3);
         }
     }
+    btnMove.addEventListener('click', makeAmove);
     return player1, player2;
 }
 
@@ -576,7 +576,7 @@ function makeAmove() {
     let moveAnim = anime.timeline({
         easing: 'easeInOutExpo',
         loop: 1,
-        duration: 750,
+        duration: 500,
         direction: 'reverse'
     });
             moveAnim.add({
@@ -606,7 +606,7 @@ function makeAmove() {
     }
     if (table[0].grade == 1 && table[1].grade == 9) {    //сравнение карт
         btnBlockPlayer2();
-        setTimeout(pickPlayer1, 3500);
+        setTimeout(pickPlayer1, 3000);
     }
     else if (table[0].grade == 9 && table[1].grade == 1) {
 
@@ -616,7 +616,7 @@ function makeAmove() {
     }
     else if (table[0].grade > table[1].grade) {
         btnBlockPlayer2();
-        setTimeout(pickPlayer1, 3500);
+        setTimeout(pickPlayer1, 3000);
     };
 
     return table;

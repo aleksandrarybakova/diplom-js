@@ -212,26 +212,26 @@ let tableCard1 = document.querySelector('.player1_table');
 let tableCard2 = document.querySelector('.player2_table');
 
 //поле для игры
-let body = document.querySelector('body');
+const body = document.querySelector('body');
 
 //итог игры
 let total;
 let finalBtn;
 
 //кнопки
-let btnGiveOut = document.querySelector('.give_out');
-let btnMove = document.querySelector('.move');
-let btnPick = document.querySelector('.pick');
+const btnGiveOut = document.querySelector('.give_out');
+const btnMove = document.querySelector('.move');
+const btnPick = document.querySelector('.pick');
 
 //табло с кол-вом карт у игрока
-let tablo1 = document.querySelector('.info_p1');
-let tablo2 = document.querySelector('.info_p2');
+const tablo1 = document.querySelector('.info_p1');
+const tablo2 = document.querySelector('.info_p2');
 tablo1.textContent = player1.length;
 tablo2.textContent = player2.length;
 
 //переменные для анимации раздачи и хода
 let deckGiveAnim;
-let moveAnim;    
+let moveAnim;
 
 //появление колоды при загрузке
 window.onload = function () {
@@ -287,6 +287,7 @@ function giveOut() {
 }
 
 function giveCards() {
+
     while (cards.length != 0) {
         for (let i = 0; i < 18; i++) {
             player1.push(cards[Math.floor(Math.random() * cards.length)]);// раздача карт для 1го игрока
@@ -298,7 +299,7 @@ function giveCards() {
                 }
             }
         }
-        
+
         tablo1.textContent = player1.length;
 
         for (let i = 0; i < 18; i++) {
@@ -313,7 +314,7 @@ function giveCards() {
         }
 
         tablo2.textContent = player2.length;
-
+    
         if (cards.length == 0) {
             body.removeChild(deck);
             body.removeChild(deck2);
@@ -324,14 +325,15 @@ function giveCards() {
     return player1, player2;
 }
 
+
 //добавление визуального элемента карт рубашкой игрокам
-function player1_cardsAdd (){
+function player1_cardsAdd() {
     player1_cards = document.createElement('div');
     body.appendChild(player1_cards);
     player1_cards.classList.add('player1_cards');
 }
 
-function player2_cardsAdd (){
+function player2_cardsAdd() {
     player2_cards = document.createElement('div');
     body.appendChild(player2_cards);
     player2_cards.classList.add('player2_cards');
@@ -342,236 +344,17 @@ function player2_cardsAdd (){
 
 // ход
 function makeAmove() {
-    btnPickPlayer2();    
-    table.unshift(player1[0]);
-    player1.shift();
+    btnPickPlayer2();
     table.unshift(player2[0]);
     player2.shift();
+    table.unshift(player1[0]);
+    player1.shift();
 
     tablo1.textContent = player1.length;
     tablo2.textContent = player2.length;
 
-    switch (table[0].name) {
-        case "six_heart":
-            tableCard1.classList.add('six_heart')
-            break;
-        case 'six_bubi':
-            tableCard1.classList.add('six_bubi')
-            break;
-        case 'six_winnie':
-            tableCard1.classList.add('six_winnie')
-            break;
-        case 'six_cross':
-            tableCard1.classList.add('six_cross')
-            break;
-        case 'seven_heart':
-            tableCard1.classList.add('seven_heart')
-            break;
-        case 'seven_bubi':
-            tableCard1.classList.add('seven_bubi')
-            break;
-        case 'seven_winnie':
-            tableCard1.classList.add('seven_winnie')
-            break;
-        case 'seven_cross':
-            tableCard1.classList.add('seven_cross')
-            break;
-        case 'eight_heart':
-            tableCard1.classList.add('eight_heart')
-            break;
-        case 'eight_bubi':
-            tableCard1.classList.add('eight_bubi')
-            break;
-        case 'eight_winnie':
-            tableCard1.classList.add('eight_winnie')
-            break;
-        case 'eight_cross':
-            tableCard1.classList.add('eight_cross')
-            break;
-        case 'nine_heart':
-            tableCard1.classList.add('nine_heart')
-            break;
-        case "nine_bubi":
-            tableCard1.classList.add('nine_bubi')
-            break;
-        case 'nine_winnie':
-            tableCard1.classList.add('nine_winnie')
-            break;
-        case 'nine_cross':
-            tableCard1.classList.add('nine_cross')
-            break;
-        case 'ten_heart':
-            tableCard1.classList.add('ten_heart')
-            break;
-        case 'ten_bubi':
-            tableCard1.classList.add('ten_bubi')
-            break;
-        case 'ten_winnie':
-            tableCard1.classList.add('ten_winnie')
-            break;
-        case 'ten_cross':
-            tableCard1.classList.add('ten_cross')
-            break;
-        case 'jack_heart':
-            tableCard1.classList.add('jack_heart')
-            break;
-        case 'jack_bubi':
-            tableCard1.classList.add('jack_bubi')
-            break;
-        case 'jack_winnie':
-            tableCard1.classList.add('jack_winnie')
-            break;
-        case 'jack_cross':
-            tableCard1.classList.add('jack_cross')
-            break;
-        case 'queen_heart':
-            tableCard1.classList.add('queen_heart')
-            break;
-        case 'queen_bubi':
-            tableCard1.classList.add('queen_bubi')
-            break;
-        case 'queen_winnie':
-            tableCard1.classList.add('queen_winnie')
-            break;
-        case 'queen_cross':
-            tableCard1.classList.add('queen_cross')
-            break;
-        case 'king_heart':
-            tableCard1.classList.add('king_heart')
-            break;
-        case 'king_bubi':
-            tableCard1.classList.add('king_bubi')
-            break;
-        case 'king_winnie':
-            tableCard1.classList.add('king_winnie')
-            break;
-        case 'king_cross':
-            tableCard1.classList.add('king_cross')
-            break;
-        case 'ace_heart':
-            tableCard1.classList.add('ace_heart')
-            break;
-        case 'ace_bubi':
-            tableCard1.classList.add('ace_bubi')
-            break;
-        case 'ace_winnie':
-            tableCard1.classList.add('ace_winnie')
-            break;
-        case 'ace_cross':
-            tableCard1.classList.add('ace_cross')
-            break;
-    }
-
-    switch (table[1].name) {
-        case "six_heart":
-            tableCard2.classList.add('six_heart')
-            break;
-        case 'six_bubi':
-            tableCard2.classList.add('six_bubi')
-            break;
-        case 'six_winnie':
-            tableCard2.classList.add('six_winnie')
-            break;
-        case 'six_cross':
-            tableCard2.classList.add('six_cross')
-            break;
-        case 'seven_heart':
-            tableCard2.classList.add('seven_heart')
-            break;
-        case 'seven_bubi':
-            tableCard2.classList.add('seven_bubi')
-            break;
-        case 'seven_winnie':
-            tableCard2.classList.add('seven_winnie')
-            break;
-        case 'seven_cross':
-            tableCard2.classList.add('seven_cross')
-            break;
-        case 'eight_heart':
-            tableCard2.classList.add('eight_heart')
-            break;
-        case 'eight_bubi':
-            tableCard2.classList.add('eight_bubi')
-            break;
-        case 'eight_winnie':
-            tableCard2.classList.add('eight_winnie')
-            break;
-        case 'eight_cross':
-            tableCard2.classList.add('eight_cross')
-            break;
-        case 'nine_heart':
-            tableCard2.classList.add('nine_heart')
-            break;
-        case "nine_bubi":
-            tableCard2.classList.add('nine_bubi')
-            break;
-        case 'nine_winnie':
-            tableCard2.classList.add('nine_winnie')
-            break;
-        case 'nine_cross':
-            tableCard2.classList.add('nine_cross')
-            break;
-        case 'ten_heart':
-            tableCard2.classList.add('ten_heart')
-            break;
-        case 'ten_bubi':
-            tableCard2.classList.add('ten_bubi')
-            break;
-        case 'ten_winnie':
-            tableCard2.classList.add('ten_winnie')
-            break;
-        case 'ten_cross':
-            tableCard2.classList.add('ten_cross')
-            break;
-        case 'jack_heart':
-            tableCard2.classList.add('jack_heart')
-            break;
-        case 'jack_bubi':
-            tableCard2.classList.add('jack_bubi')
-            break;
-        case 'jack_winnie':
-            tableCard2.classList.add('jack_winnie')
-            break;
-        case 'jack_cross':
-            tableCard2.classList.add('jack_cross')
-            break;
-        case 'queen_heart':
-            tableCard2.classList.add('queen_heart')
-            break;
-        case 'queen_bubi':
-            tableCard2.classList.add('queen_bubi')
-            break;
-        case 'queen_winnie':
-            tableCard2.classList.add('queen_winnie')
-            break;
-        case 'queen_cross':
-            tableCard2.classList.add('queen_cross')
-            break;
-        case 'king_heart':
-            tableCard2.classList.add('king_heart')
-            break;
-        case 'king_bubi':
-            tableCard2.classList.add('king_bubi')
-            break;
-        case 'king_winnie':
-            tableCard2.classList.add('king_winnie')
-            break;
-        case 'king_cross':
-            tableCard2.classList.add('king_cross')
-            break;
-        case 'ace_heart':
-            tableCard2.classList.add('ace_heart')
-            break;
-        case 'ace_bubi':
-            tableCard2.classList.add('ace_bubi')
-            break;
-        case 'ace_winnie':
-            tableCard2.classList.add('ace_winnie')
-            break;
-        case 'ace_cross':
-            tableCard2.classList.add('ace_cross')
-            break;
-    }
+    selectSuit(table[0].name, tableCard1);
+    selectSuit(table[1].name, tableCard2);    
 
     let moveAnim = anime.timeline({
         easing: 'easeInOutExpo',
@@ -579,20 +362,19 @@ function makeAmove() {
         duration: 500,
         direction: 'reverse'
     });
-            moveAnim.add({
-                targets: '.player2_table',
-                translateX: 292,
-                translateY: 115,
-                rotate: '1turn'            
-            })
-    
-            .add({            
-                targets: '.player1_table',
-                translateX: 492,
-                translateY: -103,
-                rotate: '1turn'
-            });
+    moveAnim.add({
+        targets: '.player2_table',
+        translateX: 292,
+        translateY: 115,
+        rotate: '1turn'
+    })
 
+    .add({
+        targets: '.player1_table',
+        translateX: 492,
+        translateY: -103,
+        rotate: '1turn'
+    });
 
 
     if (tableCard1.classList.length > 2 || tableCard2.classList.length > 2) {    //на столе видны только верхние изображения карт
@@ -622,15 +404,129 @@ function makeAmove() {
     return table;
 }
 
+function selectSuit(cardName, tableCard){
+    switch (cardName) {
+        case "six_heart":
+            tableCard.classList.add('six_heart')
+            break;
+        case 'six_bubi':
+            tableCard.classList.add('six_bubi')
+            break;
+        case 'six_winnie':
+            tableCard.classList.add('six_winnie')
+            break;
+        case 'six_cross':
+            tableCard.classList.add('six_cross')
+            break;
+        case 'seven_heart':
+            tableCard.classList.add('seven_heart')
+            break;
+        case 'seven_bubi':
+            tableCard.classList.add('seven_bubi')
+            break;
+        case 'seven_winnie':
+            tableCard.classList.add('seven_winnie')
+            break;
+        case 'seven_cross':
+            tableCard.classList.add('seven_cross')
+            break;
+        case 'eight_heart':
+            tableCard.classList.add('eight_heart')
+            break;
+        case 'eight_bubi':
+            tableCard.classList.add('eight_bubi')
+            break;
+        case 'eight_winnie':
+            tableCard.classList.add('eight_winnie')
+            break;
+        case 'eight_cross':
+            tableCard.classList.add('eight_cross')
+            break;
+        case 'nine_heart':
+            tableCard.classList.add('nine_heart')
+            break;
+        case "nine_bubi":
+            tableCard.classList.add('nine_bubi')
+            break;
+        case 'nine_winnie':
+            tableCard.classList.add('nine_winnie')
+            break;
+        case 'nine_cross':
+            tableCard.classList.add('nine_cross')
+            break;
+        case 'ten_heart':
+            tableCard.classList.add('ten_heart')
+            break;
+        case 'ten_bubi':
+            tableCard.classList.add('ten_bubi')
+            break;
+        case 'ten_winnie':
+            tableCard.classList.add('ten_winnie')
+            break;
+        case 'ten_cross':
+            tableCard.classList.add('ten_cross')
+            break;
+        case 'jack_heart':
+            tableCard.classList.add('jack_heart')
+            break;
+        case 'jack_bubi':
+            tableCard.classList.add('jack_bubi')
+            break;
+        case 'jack_winnie':
+            tableCard.classList.add('jack_winnie')
+            break;
+        case 'jack_cross':
+            tableCard.classList.add('jack_cross')
+            break;
+        case 'queen_heart':
+            tableCard.classList.add('queen_heart')
+            break;
+        case 'queen_bubi':
+            tableCard.classList.add('queen_bubi')
+            break;
+        case 'queen_winnie':
+            tableCard.classList.add('queen_winnie')
+            break;
+        case 'queen_cross':
+            tableCard.classList.add('queen_cross')
+            break;
+        case 'king_heart':
+            tableCard.classList.add('king_heart')
+            break;
+        case 'king_bubi':
+            tableCard.classList.add('king_bubi')
+            break;
+        case 'king_winnie':
+            tableCard.classList.add('king_winnie')
+            break;
+        case 'king_cross':
+            tableCard.classList.add('king_cross')
+            break;
+        case 'ace_heart':
+            tableCard.classList.add('ace_heart')
+            break;
+        case 'ace_bubi':
+            tableCard.classList.add('ace_bubi')
+            break;
+        case 'ace_winnie':
+            tableCard.classList.add('ace_winnie')
+            break;
+        case 'ace_cross':
+            tableCard.classList.add('ace_cross')
+            break;
+    }
+    return;
+}
+
 function pickPlayer1() {                //1й игрок забирает карты со стола
-        while (table.length != 0) {
+    while (table.length != 0) {
         player1.push(table[0]);
         tablo1.textContent = player1.length;
         tablo2.textContent = player2.length;
         table.shift();
         tableCard1.classList.remove(tableCard1.classList.item(1));
         tableCard2.classList.remove(tableCard2.classList.item(1));
-    }    
+    }
 
     if (player1.length == 36) {
         final();
@@ -647,7 +543,7 @@ function pickPlayer2() {              //2й игрок забирает карт
         tableCard1.classList.remove(tableCard1.classList.item(1));
         tableCard2.classList.remove(tableCard2.classList.item(1));
     }
-    
+
     if (player2.length == 36) {
         final();
     }
@@ -671,12 +567,14 @@ function final() {
 
     finalBtn = document.createElement('button');
     finalBtn.textContent = 'начать заново';
-    total.appendChild(finalBtn);    
+    total.appendChild(finalBtn);
     finalBtn.addEventListener('click', reboot);
 
     return total;
 }
 
-function reboot(){
+function reboot() {
     location.reload();
 }
+
+
